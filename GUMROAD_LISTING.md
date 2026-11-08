@@ -7,7 +7,7 @@
 - **Recommended launch price:** USD $9 one-time purchase
 - **Suggested URL:** `neuron-iq-early-access`
 - **Files to upload:**
-  - `Neuron-IQ-Early-Access-v1.0.0.apk`
+  - `Neuron-IQ-Early-Access-v1.0.0-release.apk`
   - `Neuron-IQ-Source-v1.0.0.zip`
   - `GUMROAD_EARLY_ACCESS.md`
 

@@ -7,7 +7,7 @@ Thank you for trying Neuron IQ Early Access. This is a self-contained brain-trai
 
 ## What is included
 
-- `Neuron-IQ-Early-Access-v1.0.0.apk` — Android installation package
+- `Neuron-IQ-Early-Access-v1.0.0-release.apk` — Android installation package
 - `Neuron-IQ-Source-v1.0.0.zip` — complete source bundle for this release
 - This guide
 
