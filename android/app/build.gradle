@@ -1,0 +1,36 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.codewithpb11.neuroniq'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'com.codewithpb11.neuroniq'
+        minSdk 24
+        targetSdk 35
+        versionCode 1
+        versionName '1.0.0'
+    }
+}
+
+// Package the existing website exactly as it is, including its local Stockfish worker.
+def webAssetsDir = layout.buildDirectory.dir('generated/web-assets')
+tasks.register('syncWebAssets', Copy) {
+    from('../..') {
+        include 'index.html'
+        include 'styles.css'
+        include 'app.js'
+        include 'assets/**'
+    }
+    into webAssetsDir
+}
+
+android.sourceSets.named('main') {
+    assets.srcDir(webAssetsDir)
+}
+
+tasks.named('preBuild') {
+    dependsOn('syncWebAssets')
+}
