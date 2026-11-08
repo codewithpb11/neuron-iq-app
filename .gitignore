@@ -1,0 +1,10 @@
+# Operating-system and editor clutter
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Local temporary files and package artifacts
+tmp/
+tmp-*/
+*.tgz
+node_modules/

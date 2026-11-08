@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-label="A colourful coral reef beneath the ocean">
+  <defs><linearGradient id="w" x2="0" y2="1"><stop stop-color="#64cddd"/><stop offset=".55" stop-color="#247fa8"/><stop offset="1" stop-color="#123c72"/></linearGradient><linearGradient id="r" x2="0" y2="1"><stop stop-color="#f5a26d"/><stop offset="1" stop-color="#b44f7d"/></linearGradient></defs>
+  <rect width="600" height="600" fill="url(#w)"/><path d="M0 0h600v104c-106 30-219 24-309 2C169 76 77 77 0 110Z" fill="#a8f1e5" opacity=".32"/>
+  <g fill="#c4f5ed" opacity=".55"><circle cx="90" cy="92" r="12"/><circle cx="118" cy="59" r="7"/><circle cx="499" cy="143" r="15"/><circle cx="536" cy="105" r="8"/><circle cx="327" cy="192" r="8"/></g>
+  <path d="M0 484c85-47 154-39 235 7 95-44 208-49 365-1v110H0Z" fill="#e6c872"/>
+  <g fill="url(#r)"><path d="M59 516c-5-91 18-154 55-213l15 126 29-73 6 174Z"/><path d="M192 539c-3-110 35-178 79-234l-9 123 46-101 3 219Z"/><path d="M438 542c-8-83 15-157 60-226l4 120 45-82-7 186Z"/></g>
+  <g fill="#7d5ad1"><path d="M339 549c-1-101 21-162 55-211l9 120 29-63 10 154Z"/><circle cx="381" cy="427" r="29"/><circle cx="408" cy="467" r="36"/></g>
+  <path d="M210 237c45-30 82-14 116 13-38 30-77 35-116-13Z" fill="#ffd566"/><path d="m228 237-26-18v38Z" fill="#f18487"/><circle cx="292" cy="235" r="4" fill="#233860"/>
+  <path d="M393 294c31-23 62-11 85 10-28 27-57 27-85-10Z" fill="#b2e5ed"/><path d="m410 294-20-14v29Z" fill="#f7839d"/><circle cx="449" cy="292" r="3" fill="#233860"/>
+</svg>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-label="A desert oasis at sunset">
+  <defs><linearGradient id="sky" x2="0" y2="1"><stop stop-color="#513c87"/><stop offset=".5" stop-color="#e5838a"/><stop offset="1" stop-color="#ffd68a"/></linearGradient><linearGradient id="sand" x2="0" y2="1"><stop stop-color="#edb86c"/><stop offset="1" stop-color="#b96d55"/></linearGradient></defs>
+  <rect width="600" height="600" fill="url(#sky)"/><circle cx="421" cy="157" r="71" fill="#ffe7a1"/><path d="M0 366c108-97 220-108 336-29 77-65 166-58 264-2v265H0Z" fill="url(#sand)"/>
+  <path d="M0 464c112-51 216-35 308 6 101 45 198 37 292-6v136H0Z" fill="#d58a5e"/>
+  <ellipse cx="303" cy="453" rx="138" ry="53" fill="#3a9ca5"/><ellipse cx="303" cy="439" rx="119" ry="35" fill="#82dbd0"/>
+  <g fill="#2d715c"><path d="m168 445 35-198 18 198Z"/><path d="m199 298-72-50 69 85-67-7 67 33-50 34 62-27Z"/><path d="m440 457 31-203 18 203Z"/><path d="m470 308-63-55 59 88-69-6 67 32-54 38 64-31Z"/></g>
+  <g fill="#6f433e"><path d="M79 428c43-54 81-75 124-67l-19 84H57Z"/><path d="M494 397c40-44 71-56 106-47v94H472Z"/></g>
+  <path d="M225 530c83-25 160-23 238 0" fill="none" stroke="#f4c97b" stroke-width="9" stroke-linecap="round" opacity=".65"/>
+</svg>

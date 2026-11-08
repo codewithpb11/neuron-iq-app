@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-label="A whimsical galaxy with planets and stars">
+  <defs><radialGradient id="b"><stop stop-color="#4e3a91"/><stop offset="1" stop-color="#111a4a"/></radialGradient><linearGradient id="planet" x2="1" y2="1"><stop stop-color="#a9d8ff"/><stop offset="1" stop-color="#5f6fc7"/></linearGradient></defs>
+  <rect width="600" height="600" fill="url(#b)"/><g fill="#fff4c4"><circle cx="81" cy="87" r="4"/><circle cx="169" cy="143" r="6"/><circle cx="285" cy="72" r="4"/><circle cx="506" cy="107" r="5"/><circle cx="548" cy="286" r="4"/><circle cx="89" cy="334" r="5"/><circle cx="184" cy="514" r="4"/><circle cx="421" cy="523" r="6"/><circle cx="315" cy="421" r="3"/></g>
+  <path d="M28 216c127-109 278-116 523-16" fill="none" stroke="#9f74ee" stroke-width="26" opacity=".45"/><path d="M7 252c172-117 361-110 586-15" fill="none" stroke="#64d7d0" stroke-width="8" opacity=".6"/>
+  <circle cx="193" cy="330" r="117" fill="url(#planet)"/><path d="M95 319c70-42 160-38 219 9" fill="none" stroke="#d7f5f6" stroke-width="20" opacity=".58"/><path d="M111 367c59 34 148 41 203 4" fill="none" stroke="#5360b2" stroke-width="18" opacity=".55"/>
+  <circle cx="470" cy="183" r="61" fill="#ffa975"/><ellipse cx="470" cy="183" rx="106" ry="27" fill="none" stroke="#f5d77d" stroke-width="12" transform="rotate(-19 470 183)"/>
+  <path d="m409 499 25-63 25 63 64 25-64 25-25 63-25-63-64-25Z" fill="#ffd86c"/>
+</svg>

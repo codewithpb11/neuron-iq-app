@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-label="A colourful mountain lake at sunrise">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#6b59b8"/>
+      <stop offset=".52" stop-color="#64b9d3"/>
+      <stop offset="1" stop-color="#d1e2d5"/>
+    </linearGradient>
+    <linearGradient id="lake" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#72d3d2"/>
+      <stop offset="1" stop-color="#347c9b"/>
+    </linearGradient>
+    <linearGradient id="mountain" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#33437c"/>
+      <stop offset="1" stop-color="#182b54"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="600" fill="url(#sky)"/>
+  <circle cx="454" cy="146" r="68" fill="#ffe29a"/>
+  <circle cx="454" cy="146" r="91" fill="#ffe5a4" opacity=".18"/>
+  <path d="M0 300 125 154l72 83 79-115 149 182Z" fill="#5667aa"/>
+  <path d="m125 154 31 36-19 12 24 29-44-19-42 48Z" fill="#f2f5f5"/>
+  <path d="m276 122 39 49-25 17 30 42-57-32-65 84Z" fill="#fbf5eb"/>
+  <path d="M0 351 125 230l86 90 108-137 125 166 76-73 80 86v79H0Z" fill="url(#mountain)"/>
+  <path d="m211 320 108-137 53 70-44-17-30 41-38-15-49 58Z" fill="#9db9cf" opacity=".75"/>
+  <path d="M0 376c98-24 167-18 264 6 113 28 214 22 336-8v226H0Z" fill="url(#lake)"/>
+  <path d="M0 440c98 18 195 4 301-19 107-23 201-25 299-8v25c-105-17-205-12-299 8C198 466 98 479 0 461Z" fill="#b0eee4" opacity=".8"/>
+  <path d="M0 491c117 21 227 12 331-8 99-19 188-19 269-4v121H0Z" fill="#164b63"/>
+  <g fill="#123b47">
+    <path d="m42 317 29 76H13Z"/><path d="m78 345 25 65H53Z"/><path d="m124 309 35 95H89Z"/><path d="m493 310 37 97h-74Z"/><path d="m542 339 30 75h-60Z"/><path d="m414 352 30 78h-60Z"/>
+  </g>
+  <g fill="#29616a">
+    <path d="m25 370 22-57 22 57Z"/><path d="m105 371 26-69 26 69Z"/><path d="m465 377 28-73 28 73Z"/><path d="m528 387 25-65 25 65Z"/>
+  </g>
+  <path d="M237 467c43 6 85 6 126 0-14 23-31 37-63 37-31 0-49-15-63-37Z" fill="#ffe7af" opacity=".7"/>
+</svg>

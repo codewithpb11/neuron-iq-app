@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0c1022" />
+    <title>Neuron — IQ & Brain Training</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="ambient orb-one"></div>
+    <div class="ambient orb-two"></div>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="#home" aria-label="Neuron home">
+          <span class="brand-mark"><i></i><i></i><i></i></span>
+          <span>neuron<span class="brand-dot">.</span></span>
+        </a>
+        <p class="sidebar-label">YOUR SPACE</p>
+        <nav class="main-nav" aria-label="Main navigation">
+          <button class="nav-link active" data-view="home"><span>⌂</span>Overview</button>
+          <button class="nav-link" data-view="test"><span>◌</span>IQ assessment</button>
+          <button class="nav-link" data-view="plan"><span>↗</span>Growth plan</button>
+          <button class="nav-link" data-view="games"><span>⌘</span>Game room</button>
+        </nav>
+        <div class="sidebar-footer">
+          <div class="daily-mini"><span class="flame">✦</span><div><b id="sideStreak">1 day</b><small>current streak</small></div></div>
+          <button class="reset-data" id="resetData">Reset my data</button>
+        </div>
+      </aside>
+
+      <main>
+        <header class="topbar">
+          <button class="menu-button" id="menuButton" aria-label="Open menu">☰</button>
+          <div class="greeting"><span class="eyebrow" id="currentDate">TODAY</span><h1 id="pageTitle">Build a brighter mind.</h1></div>
+          <div class="top-actions"><button class="icon-button" id="soundButton" aria-label="Toggle sounds">♫</button><div class="avatar">P</div></div>
+        </header>
+
+        <section class="view active" id="homeView">
+          <div class="hero-grid">
+            <article class="hero-card">
+              <div class="hero-copy"><span class="pill"><span class="pulse-dot"></span> YOUR MIND, IN MOTION</span><h2>Small reps.<br /><em>Sharper</em> thinking.</h2><p>Test your baseline, then train the skills that make everyday thinking feel easier.</p><button class="primary-button" data-goto="test">Take the free IQ test <span>→</span></button></div>
+              <div class="brain-art" aria-hidden="true"><div class="brain-ring r1"></div><div class="brain-ring r2"></div><div class="brain-ring r3"></div><div class="brain-core">✦</div><span class="spark s1">✦</span><span class="spark s2">+</span><span class="spark s3">✦</span><span class="spark s4">+</span></div>
+            </article>
+            <article class="score-card">
+              <div class="card-heading"><span>YOUR BASELINE</span><button data-goto="test">View test →</button></div>
+              <div class="score-empty" id="scoreEmpty"><span class="circle-empty">?</span><p>Take the 8-minute assessment to discover your starting point.</p></div>
+              <div class="score-result hidden" id="scoreResult"><div class="score-orbit"><b id="homeScore">—</b><span>IQ SCORE</span></div><div><h3 id="homeBand">Your baseline awaits</h3><p id="homeScoreNote">A personal plan will appear here.</p></div></div>
+              <div class="score-foot"><span>30 QUESTIONS</span><span>•</span><span>NO SIGN-UP</span></div>
+            </article>
+          </div>
+
+          <section class="section-heading"><div><span class="eyebrow">TODAY'S FOCUS</span><h2>Give your brain a good workout.</h2></div><button class="text-button" data-goto="games">Explore all games <span>→</span></button></section>
+          <div class="focus-grid">
+            <article class="focus-card purple"><span class="focus-icon">♞</span><div><span class="tag">STRATEGY · 12 MIN</span><h3>Think three moves ahead.</h3><p>Chess patterns build planning and attention.</p></div><button class="round-play" data-play-game="chess" aria-label="Play chess">▶</button></article>
+            <article class="focus-card gold"><span class="focus-icon">↯</span><div><span class="tag">WORKING MEMORY · 5 MIN</span><h3>Hold more in your mind.</h3><p>Find every matching pair before time runs out.</p></div><button class="round-play" data-play-game="memory" aria-label="Play memory">▶</button></article>
+            <article class="focus-card teal"><span class="focus-icon">▦</span><div><span class="tag">REASONING · 10 MIN</span><h3>See the hidden pattern.</h3><p>Use logic to complete a classic Sudoku.</p></div><button class="round-play" data-play-game="sudoku" aria-label="Play sudoku">▶</button></article>
+          </div>
+
+          <section class="progress-panel">
+            <div class="progress-intro"><span class="eyebrow">WEEKLY RHYTHM</span><h2>Your focus score</h2><p>Consistency matters more than marathon sessions.</p></div>
+            <div class="week-chart" id="weekChart" aria-label="Weekly training progress"></div>
+            <div class="progress-stat"><b id="sessionCount">0</b><span>sessions<br />this week</span></div>
+          </section>
+        </section>
+
+        <section class="view" id="testView">
+          <div class="view-intro test-intro"><div><span class="eyebrow">FREE 30-QUESTION ASSESSMENT</span><h2>Meet your mind where it is.</h2><p>Explore your reasoning, working memory, verbal fluency and pattern recognition. This short practice assessment is for learning and is not a clinical IQ test.</p></div><div class="assessment-meta"><b>8–10</b><span>minutes</span><b>30</b><span>questions</span></div></div>
+          <div class="assessment-card" id="assessmentStart">
+            <div class="test-visual"><div class="mini-grid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+            <div><span class="pill soft" id="assessmentStatus">READY WHEN YOU ARE</span><h3>Find your baseline.</h3><p>There are no trick questions. Work at a steady pace, choose the best answer, and avoid looking things up.</p><div class="assessment-actions"><button class="primary-button" id="startTest">Start assessment <span>→</span></button><button class="secondary-button hidden" id="exploreFirst">Explore the app first</button></div></div>
+          </div>
+          <div class="quiz-shell hidden" id="quizShell">
+            <div class="quiz-top"><div><span class="eyebrow" id="questionCategory">NUMERICAL REASONING</span><h3 id="questionNumber">Question 1 of 30</h3></div><div class="quiz-top-actions"><button class="quit-test" id="quitTest">Quit assessment</button><span class="timer" id="quizTimer">08:00</span></div></div>
+            <div class="progress-line"><i id="quizProgress"></i></div>
+            <div class="quiz-content"><div class="question-art" id="questionArt">2&nbsp; · &nbsp;6&nbsp; · &nbsp;12&nbsp; · &nbsp;20&nbsp; · &nbsp;?</div><h2 id="questionText">Which number completes the sequence?</h2><div class="answers" id="answers"></div></div>
+            <div class="quiz-actions"><button class="secondary-button" id="previousQuestion">← Previous</button><span id="answerStatus">Choose one answer</span><button class="primary-button" id="nextQuestion">Next <span>→</span></button></div>
+          </div>
+          <div class="test-result hidden" id="testResult"></div>
+        </section>
+
+        <section class="view" id="planView">
+          <div class="view-intro"><div><span class="eyebrow">YOUR PERSONAL PLAYBOOK</span><h2>Make your thinking<br /><em>more flexible.</em></h2><p id="planLead">Take the assessment first and we’ll turn your result into a sustainable training plan.</p></div><div class="plan-score"><span>YOUR CURRENT BASELINE</span><b id="planScore">—</b><small id="planBand">Not assessed yet</small></div></div>
+          <div id="lockedPlan" class="locked-plan"><span class="lock-icon">◌</span><h3>Your plan is waiting.</h3><p>Take the free assessment to get a step-by-step routine matched to your current score.</p><button class="primary-button" data-goto="test">Take the assessment <span>→</span></button></div>
+          <div class="plan-content hidden" id="planContent">
+            <div class="plan-principles"><article><span>01</span><h3>Train, don’t cram.</h3><p>Short, focused practice strengthens cognitive habits better than occasional overload.</p></article><article><span>02</span><h3>Mix your reps.</h3><p>Rotate verbal, visual, strategic and memory challenges to stay adaptable.</p></article><article><span>03</span><h3>Protect recovery.</h3><p>Sleep, movement and social connection give your brain room to consolidate skills.</p></article></div>
+            <section class="recommended-games"><div class="section-heading"><div><span class="eyebrow">YOUR RECOMMENDED STARTING LEVELS</span><h2>Play at the edge of comfortable.</h2></div><span class="week-badge">ADAPTS TO YOUR RESULT</span></div><p class="recommendation-note">These levels are a practical starting point for varied cognitive practice. They cannot guarantee an IQ increase; adjust upward when a level becomes easy.</p><div class="recommended-game-grid" id="recommendedGames"></div></section>
+            <section class="roadmap"><div class="section-heading"><div><span class="eyebrow">YOUR 4-WEEK ROADMAP</span><h2 id="roadmapHeading">Build a stronger foundation.</h2></div><span class="week-badge">15 MIN / DAY</span></div><div class="roadmap-list" id="roadmapList"></div></section>
+            <section class="today-plan"><div><span class="eyebrow">START TODAY</span><h2 id="todayPlanTitle">Your first 15 minutes</h2><p id="todayPlanText">Choose one task below and mark it complete when you’re done.</p></div><div class="today-checklist" id="todayChecklist"></div></section>
+          </div>
+        </section>
+
+        <section class="view" id="gamesView">
+          <div class="view-intro games-intro"><div><span class="eyebrow">THE GAME ROOM</span><h2>Play with purpose.</h2><p>Each game gives a different thinking skill a playful, practical rep. Five focused minutes counts.</p></div><div class="game-streak"><span>✦</span><b id="gameStreak">1</b><small>day streak</small></div></div>
+          <div class="game-catalog" id="gameCatalog"></div>
+          <div class="game-stage hidden" id="gameStage"><div class="stage-head"><button class="back-button" id="closeGame">← Back to games</button><div><span class="eyebrow" id="stageSkill">STRATEGY</span><h2 id="stageTitle">Chess</h2></div><div class="stage-stat" id="stageStat">Make your move</div></div><div class="game-level-control" id="gameLevelControl"></div><div class="stage-body" id="stageBody"></div></div>
+        </section>
+      </main>
+    </div>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="app.js"></script>
+  </body>
+</html>

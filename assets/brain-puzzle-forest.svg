@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-label="A sunlit forest path">
+  <defs><linearGradient id="s" x2="0" y2="1"><stop stop-color="#8bd3e5"/><stop offset="1" stop-color="#e3f2bd"/></linearGradient><linearGradient id="p" x2="0" y2="1"><stop stop-color="#e9c078"/><stop offset="1" stop-color="#b77b4e"/></linearGradient></defs>
+  <rect width="600" height="600" fill="url(#s)"/><circle cx="442" cy="106" r="54" fill="#ffe29a"/><path d="M0 255c73-40 138-33 208 8 80-61 204-67 392-6v343H0Z" fill="#79b76a"/>
+  <path d="M205 600c17-133 66-208 134-287 45 65 88 146 98 287Z" fill="url(#p)"/><path d="M257 600c24-111 46-171 81-239 27 59 47 122 55 239Z" fill="#f4d38c" opacity=".55"/>
+  <g fill="#315f46"><path d="M18 0h63l-7 313H19Z"/><path d="M120 0h54l-4 273h-50Z"/><path d="M478 0h61l-7 327h-55Z"/><path d="M369 0h45l-3 245h-42Z"/></g>
+  <g fill="#3b7c51"><circle cx="57" cy="128" r="98"/><circle cx="149" cy="179" r="105"/><circle cx="436" cy="159" r="100"/><circle cx="548" cy="119" r="111"/><circle cx="369" cy="240" r="88"/></g>
+  <g fill="#6bb766"><circle cx="81" cy="102" r="54"/><circle cx="190" cy="118" r="65"/><circle cx="414" cy="108" r="60"/><circle cx="537" cy="183" r="57"/></g>
+  <g fill="#fff2ad" opacity=".75"><circle cx="183" cy="317" r="6"/><circle cx="422" cy="298" r="7"/><circle cx="135" cy="389" r="5"/><circle cx="474" cy="408" r="5"/></g>
+</svg>
