@@ -8,7 +8,8 @@ const state = {
   streak: Number(localStorage.getItem('neuronStreak')) || 1,
   quizIndex: 0,
   answers: [],
-  timer: 480,
+  elapsedSeconds: 0,
+  assessmentStartedAt: null,
   timerId: null,
   activeGame: null,
   sound: true,
@@ -17,38 +18,48 @@ const state = {
 };
 state.chessLevel = Math.min(10, Math.max(1, Number(localStorage.getItem('neuronChessLevel')) || 1));
 
+// Each item ends with a rough difficulty anchor (-1.2 easy to +1.0 challenging).
+// The anchors make harder items matter more in the estimate without pretending this
+// unnormed practice test is equivalent to a professionally standardized IQ test.
 const quizQuestions = [
-  ['Numerical reasoning', '2 · 6 · 12 · 20 · ?', 'Which number completes the sequence?', ['24', '28', '30', '32'], 2],
-  ['Pattern recognition', '△  ○  △  ○  △  ?', 'What comes next?', ['△', '○', '□', '◇'], 1],
-  ['Verbal reasoning', 'BOOK is to READING as FORK is to …', 'Choose the closest relationship.', ['drawing', 'eating', 'writing', 'walking'], 1],
-  ['Numerical reasoning', '81 · 27 · 9 · 3 · ?', 'Which number completes the sequence?', ['0', '1', '2', '6'], 1],
-  ['Logic', 'All roses are flowers. Some flowers fade quickly.', 'Which statement must be true?', ['All roses fade quickly.', 'Some roses fade quickly.', 'Roses are flowers.', 'No roses fade quickly.'], 2],
-  ['Pattern recognition', '■ ■ □  ■ ■ □  ■ ?', 'What comes next?', ['■', '□', '■ ■', '□ □'], 0],
-  ['Numerical reasoning', '5 · 11 · 23 · 47 · ?', 'Find the next number.', ['71', '84', '95', '97'], 2],
-  ['Verbal reasoning', 'Which word does not belong?', 'Select the odd one out.', ['Violin', 'Cello', 'Trumpet', 'Sonnet'], 3],
-  ['Spatial reasoning', '↑  →  ↓  ←  ?', 'A pointer rotates by a quarter turn each step. What follows?', ['↑', '→', '↓', '←'], 0],
-  ['Logic', 'Mia is older than Sam. Sam is older than Ali.', 'Who is youngest?', ['Mia', 'Sam', 'Ali', 'Cannot tell'], 2],
-  ['Numerical reasoning', '1 · 4 · 9 · 16 · ?', 'Which number completes the sequence?', ['20', '24', '25', '27'], 2],
-  ['Verbal reasoning', 'GLOVE is to HAND as SHOE is to …', 'Choose the closest relationship.', ['foot', 'lace', 'sock', 'floor'], 0],
-  ['Pattern recognition', '● ▲ ▲  ● ▲ ▲  ● ?', 'What comes next?', ['●', '▲', '▲ ▲', '● ●'], 1],
-  ['Numerical reasoning', '14 · 17 · 23 · 32 · 44 · ?', 'What comes next?', ['54', '57', '59', '61'], 2],
-  ['Logic', 'If today is Wednesday, what day will it be in 17 days?', 'Work it out without a calendar.', ['Friday', 'Saturday', 'Sunday', 'Monday'], 1],
-  ['Verbal reasoning', 'CALM is the opposite of …', 'Choose the best antonym.', ['quiet', 'still', 'anxious', 'soft'], 2],
-  ['Numerical reasoning', '3 · 8 · 15 · 24 · 35 · ?', 'Which number completes the sequence?', ['45', '46', '48', '50'], 2],
-  ['Spatial reasoning', '◇  ◆  ◇  ◆  ◇  ?', 'What comes next?', ['◇', '◆', '□', '●'], 1],
-  ['Logic', 'Three runners finish a race. Leena finishes before Noor. Noor finishes before Ava.', 'Who finishes in the middle?', ['Leena', 'Noor', 'Ava', 'Cannot tell'], 1],
-  ['Numerical reasoning', '100 · 96 · 88 · 76 · ?', 'Find the next number.', ['60', '62', '64', '66'], 0],
-  ['Verbal reasoning', 'Which pair has the most similar meaning?', 'Choose one pair.', ['tiny / small', 'cold / bright', 'soft / rough', 'fast / slow'], 0],
-  ['Pattern recognition', 'A1 · C3 · E5 · G7 · ?', 'Which item comes next?', ['H8', 'I9', 'J9', 'I10'], 1],
-  ['Logic', 'A red cube is left of a blue cube. A green cube is right of the blue cube.', 'Which cube is in the middle?', ['red', 'blue', 'green', 'Cannot tell'], 1],
-  ['Numerical reasoning', '7 · 10 · 16 · 25 · 37 · ?', 'Which number completes the sequence?', ['48', '50', '52', '54'], 2],
-  ['Verbal reasoning', 'BIRD is to NEST as BEE is to …', 'Choose the closest relationship.', ['hive', 'honey', 'wing', 'flower'], 0],
-  ['Pattern recognition', '1A · 2C · 3E · 4G · ?', 'Which item comes next?', ['5H', '5I', '6I', '5J'], 1],
-  ['Logic', 'Four books are stacked: blue over green, green over yellow, yellow over red.', 'Which book is on top?', ['red', 'yellow', 'green', 'blue'], 3],
-  ['Numerical reasoning', '64 · 32 · 16 · 8 · ?', 'Which number completes the sequence?', ['2', '4', '6', '10'], 1],
-  ['Verbal reasoning', 'Which word can be made from the letters in “LISTEN”?', 'Choose one answer.', ['silent', 'tinsel', 'enlist', 'All of these'], 3],
-  ['Logic', 'A clock shows 3:00. What is the smaller angle between its hands?', 'Choose the correct angle.', ['30°', '60°', '90°', '120°'], 2]
+  ['Numerical reasoning', '2 · 6 · 12 · 20 · ?', 'Which number completes the sequence?', ['24', '28', '30', '32'], 2, -0.2],
+  ['Pattern recognition', '△  ○  △  ○  △  ?', 'What comes next?', ['△', '○', '□', '◇'], 1, -1.2],
+  ['Verbal reasoning', 'BOOK is to READING as FORK is to …', 'Choose the closest relationship.', ['drawing', 'eating', 'writing', 'walking'], 1, -1.0],
+  ['Numerical reasoning', '81 · 27 · 9 · 3 · ?', 'Which number completes the sequence?', ['0', '1', '2', '6'], 1, -1.3],
+  ['Logic', 'Every astrophysicist is a scientist. Some scientists are musicians. No musician is a pilot.', 'Which conclusion must be true?', ['All astrophysicists are pilots.', 'Some astrophysicists are musicians.', 'Some scientists are not pilots.', 'No scientist is a pilot.'], 2, 0.7],
+  ['Pattern recognition', '■ ■ □  ■ ■ □  ■ ?', 'What comes next?', ['■', '□', '■ ■', '□ □'], 0, -1.0],
+  ['Numerical reasoning', '5 · 11 · 23 · 47 · ?', 'Find the next number.', ['71', '84', '95', '97'], 2, 0.0],
+  ['Verbal reasoning', 'AQUATIC is to WATER as ARBOREAL is to …', 'Choose the closest relationship.', ['trees', 'stone', 'metal', 'clouds'], 0, -0.3],
+  ['Spatial reasoning', '↑  →  ↓  ←  ?', 'A pointer rotates by a quarter turn each step. What follows?', ['↑', '→', '↓', '←'], 0, -0.8],
+  ['Logic', 'Mia is older than Sam. Sam is older than Ali.', 'Who is youngest?', ['Mia', 'Sam', 'Ali', 'Cannot tell'], 2, -1.0],
+  ['Numerical reasoning', '1 · 2 · 6 · 15 · 31 · ?', 'Which number completes the sequence?', ['47', '52', '56', '63'], 2, 1.0],
+  ['Verbal reasoning', 'LACONIC most nearly means …', 'Choose the closest meaning.', ['brief', 'musical', 'angry', 'careless'], 0, 0.5],
+  ['Pattern recognition', '■  □ □  ■ ■  □ □ □  ■ ■ ■  □ □ □ □  ?', 'Which block comes next?', ['■ ■ ■ ■', '□ □ □ □', '■ ■ ■', '□ □ □'], 0, 0.7],
+  ['Numerical reasoning', '14 · 17 · 23 · 32 · 44 · ?', 'What comes next?', ['54', '57', '59', '61'], 2, 0.0],
+  ['Logic', 'If today is Wednesday, what day will it be in 100 days?', 'Work it out without a calendar.', ['Thursday', 'Friday', 'Saturday', 'Sunday'], 1, 0.4],
+  ['Verbal reasoning', 'METICULOUS most nearly means …', 'Choose the best definition.', ['careful', 'sleepy', 'loud', 'ordinary'], 0, 0.4],
+  ['Numerical reasoning', '2 · 3 · 5 · 9 · 17 · ?', 'Which number completes the sequence?', ['25', '31', '33', '35'], 2, 0.8],
+  ['Spatial reasoning', '↗  →  ↘  ↓  ?', 'A pointer rotates by 45° each step. What follows?', ['←', '↙', '↖', '↑'], 1, -0.1],
+  ['Logic', 'Four people stand in a line. B is somewhere after A. C is immediately before D. A is after D.', 'Who must stand first?', ['A', 'B', 'C', 'D'], 2, 0.3],
+  ['Numerical reasoning', '4 · 6 · 12 · 14 · 28 · 30 · ?', 'Find the next number.', ['32', '48', '56', '60'], 3, 0.5],
+  ['Verbal reasoning', 'Which pair has the most similar meaning?', 'Choose one pair.', ['tiny / small', 'cold / bright', 'soft / rough', 'fast / slow'], 0, -1.0],
+  ['Pattern recognition', 'B2 · E6 · I12 · N20 · ?', 'Which item comes next?', ['S28', 'T28', 'T30', 'U30'], 2, 1.0],
+  ['Logic', 'Three boxes are labelled “coins”, “stamps”, and “coins + stamps”. Every label is wrong. You pick a coin from the box labelled “coins + stamps”. What does that box contain?', 'Use the “all labels are wrong” rule.', ['coins only', 'stamps only', 'coins and stamps', 'Cannot tell'], 0, 1.0],
+  ['Numerical reasoning', '2 · 7 · 16 · 29 · 46 · ?', 'Which number completes the sequence?', ['61', '65', '67', '69'], 2, 1.0],
+  ['Verbal reasoning', 'BIRD is to NEST as BEE is to …', 'Choose the closest relationship.', ['hive', 'honey', 'wing', 'flower'], 0, -0.8],
+  ['Pattern recognition', 'ACE · BDF · CEG · ?', 'Which group comes next?', ['CDF', 'DFG', 'DFH', 'EGI'], 2, 0.3],
+  ['Logic', 'Four books are stacked: blue over green, green over yellow, yellow over red.', 'Which book is on top?', ['red', 'yellow', 'green', 'blue'], 3, -0.7],
+  ['Numerical reasoning', '64 · 32 · 16 · 8 · ?', 'Which number completes the sequence?', ['2', '4', '6', '10'], 1, -1.0],
+  ['Verbal reasoning', 'MALLEABLE is to FLEXIBLE as BRITTLE is to …', 'Choose the closest relationship.', ['fragile', 'shiny', 'large', 'silent'], 0, 0.4],
+  ['Logic', 'A clock shows 3:20. What is the smaller angle between its hands?', 'Choose the correct angle.', ['10°', '20°', '30°', '40°'], 1, 0.9]
 ];
+
+const assessmentGroups = {
+  Numerical: [0, 3, 6, 10, 13, 16, 19, 23, 27],
+  Verbal: [2, 7, 11, 15, 20, 24, 28],
+  Logic: [4, 9, 14, 18, 22, 26, 29],
+  Patterns: [1, 5, 8, 12, 17, 21, 25]
+};
 
 const games = [
   { id: 'word', title: 'Word Connect', icon: '✎', skill: 'VERBAL FLUENCY', desc: 'Build words from a small letter wheel.', theme: 'purple' },
@@ -300,11 +311,70 @@ function renderPlan() {
   $$('[data-recommend-game]').forEach(button => button.addEventListener('click', () => { const gameId = button.dataset.recommendGame, level = Number(button.dataset.recommendLevel); if (gameId === 'chess') { state.chessLevel = level; localStorage.setItem('neuronChessLevel', String(level)); } else setGameLevel(gameId, level); navigate('games'); setTimeout(() => openGame(gameId), 80); }));
 }
 
+function clamp(value, lower, upper) { return Math.min(upper, Math.max(lower, value)); }
+function formatDuration(totalSeconds) {
+  const seconds = Math.max(0, Math.round(totalSeconds));
+  return `${String(Math.floor(seconds / 60)).padStart(2, '0')}:${String(seconds % 60).padStart(2, '0')}`;
+}
+function currentElapsedSeconds() {
+  if (state.assessmentStartedAt === null) return state.elapsedSeconds;
+  return Math.max(0, Math.floor((performance.now() - state.assessmentStartedAt) / 1000));
+}
+function stopAssessmentTimer() {
+  state.elapsedSeconds = currentElapsedSeconds();
+  state.assessmentStartedAt = null;
+  clearInterval(state.timerId);
+  state.timerId = null;
+  updateTimer();
+}
+function updateTimer() { $('#quizTimer').textContent = formatDuration(currentElapsedSeconds()); }
+
+// This is a small 3-parameter-style practice model: each item's difficulty is
+// considered, four-option guessing is accounted for, and response time is only
+// a narrow tiebreaker. A real IQ score requires representative norming data.
+function responseChance(ability, difficulty) {
+  return 0.25 + 0.75 / (1 + Math.exp(-1.25 * (ability - difficulty)));
+}
+function estimateAbility(answers) {
+  let bestAbility = -2.5;
+  let bestLikelihood = -Infinity;
+  for (let ability = -2.5; ability <= 3; ability += 0.01) {
+    const likelihood = quizQuestions.reduce((sum, question, index) => {
+      const probability = clamp(responseChance(ability, question[5]), 0.0001, 0.9999);
+      return sum + (answers[index] === question[4] ? Math.log(probability) : Math.log(1 - probability));
+    }, 0);
+    if (likelihood > bestLikelihood) { bestLikelihood = likelihood; bestAbility = ability; }
+  }
+  return bestAbility;
+}
+function calculateTimingAdjustment(correct, elapsedSeconds) {
+  const secondsPerQuestion = elapsedSeconds / quizQuestions.length;
+  const accuracyEvidence = clamp((correct / quizQuestions.length - 0.25) / 0.75, 0, 1);
+  if (secondsPerQuestion < 4) return -2;
+  const pace = clamp((25 - secondsPerQuestion) / 18, -1, 1);
+  return Math.round(pace * accuracyEvidence * 3);
+}
+function describePace(elapsedSeconds) {
+  const secondsPerQuestion = elapsedSeconds / quizQuestions.length;
+  if (secondsPerQuestion < 4) return 'very rapid — no speed credit applied';
+  if (secondsPerQuestion < 14) return 'brisk pace';
+  if (secondsPerQuestion <= 28) return 'steady pace';
+  return 'unhurried pace';
+}
+function calculateAssessmentResult() {
+  const correct = quizQuestions.reduce((count, question, index) => count + (state.answers[index] === question[4] ? 1 : 0), 0);
+  const ability = estimateAbility(state.answers);
+  const timingAdjustment = calculateTimingAdjustment(correct, state.elapsedSeconds);
+  const score = Math.round(clamp(100 + ability * 15 + timingAdjustment, 70, 145));
+  return { correct, score, timingAdjustment, pace: describePace(state.elapsedSeconds) };
+}
+
 function startAssessment() {
   clearInterval(state.timerId);
-  state.quizIndex = 0; state.answers = Array(quizQuestions.length).fill(null); state.timer = 480;
+  state.quizIndex = 0; state.answers = Array(quizQuestions.length).fill(null); state.elapsedSeconds = 0; state.assessmentStartedAt = performance.now();
   $('#assessmentStart').classList.add('hidden'); $('#testResult').classList.add('hidden'); $('#quizShell').classList.remove('hidden');
-  state.timerId = setInterval(() => { state.timer--; updateTimer(); if (state.timer <= 0) finishAssessment(); }, 1000);
+  updateTimer();
+  state.timerId = setInterval(updateTimer, 500);
   renderQuestion();
 }
 function renderOnboarding() {
@@ -313,7 +383,7 @@ function renderOnboarding() {
   $('#exploreFirst').classList.toggle('hidden', !newcomer);
 }
 function leaveAssessment() {
-  clearInterval(state.timerId);
+  stopAssessmentTimer();
   localStorage.setItem('neuronOnboardingDismissed', 'true');
   $('#quizShell').classList.add('hidden');
   $('#testResult').classList.add('hidden');
@@ -323,7 +393,6 @@ function leaveAssessment() {
   showToast('You can take the assessment whenever you’re ready.');
   navigate('home');
 }
-function updateTimer() { const minutes = String(Math.floor(Math.max(0, state.timer) / 60)).padStart(2, '0'); const seconds = String(Math.max(0, state.timer) % 60).padStart(2, '0'); $('#quizTimer').textContent = `${minutes}:${seconds}`; }
 function renderQuestion() {
   const [category, art, text, options] = quizQuestions[state.quizIndex];
   $('#questionCategory').textContent = category.toUpperCase(); $('#questionNumber').textContent = `Question ${state.quizIndex + 1} of ${quizQuestions.length}`; $('#questionArt').textContent = art; $('#questionText').textContent = text;
@@ -340,15 +409,14 @@ function changeQuestion(delta) {
   else { state.quizIndex = Math.max(0, state.quizIndex + delta); renderQuestion(); }
 }
 function finishAssessment() {
-  clearInterval(state.timerId);
-  const correct = quizQuestions.reduce((count, question, i) => count + (state.answers[i] === question[4] ? 1 : 0), 0);
-  const score = Math.min(145, Math.max(70, Math.round(70 + correct * 2.5 + (state.timer > 300 ? 2 : 0))));
+  stopAssessmentTimer();
+  const { correct, score, timingAdjustment, pace } = calculateAssessmentResult();
   state.score = score; localStorage.removeItem('neuronOnboardingDismissed'); persist(); renderOnboarding(); renderScore(); renderStats();
   $('#quizShell').classList.add('hidden'); $('#testResult').classList.remove('hidden');
   const band = planByBand[getBand(score)];
-  const groups = { 'Numerical': [0,3,6,10,13,16,19,23,27], 'Verbal': [2,7,11,15,20,24,28], 'Logic': [4,9,14,18,22,26,29], 'Patterns': [1,5,8,12,17,21,25] };
-  const breakdown = Object.entries(groups).map(([name, list]) => { const got = list.filter(i => state.answers[i] === quizQuestions[i][4]).length; return `<div><b>${Math.round((got / list.length) * 100)}%</b><span>${name.toUpperCase()}</span></div>`; }).join('');
-  $('#testResult').innerHTML = `<span class="pill"><span class="pulse-dot"></span> ASSESSMENT COMPLETE</span><div class="result-orbit"><b>${score}</b><span>IQ SCORE</span></div><h2>${band.name}, meet your growth plan.</h2><p>You answered <strong>${correct} of 30</strong> questions correctly. This illustrative score is a learning snapshot, not a clinical measurement. Your plan now includes recommended starting levels for every game, built around steady, varied practice.</p><div class="result-breakdown">${breakdown}</div><button class="primary-button" data-goto="plan">See my game levels + plan <span>→</span></button> <button class="secondary-button" id="retakeTest">Retake later</button>`;
+  const breakdown = Object.entries(assessmentGroups).map(([name, list]) => { const got = list.filter(i => state.answers[i] === quizQuestions[i][4]).length; return `<div><b>${Math.round((got / list.length) * 100)}%</b><span>${name.toUpperCase()}</span></div>`; }).join('');
+  const timingText = timingAdjustment === 0 ? 'no score change' : `${timingAdjustment > 0 ? '+' : ''}${timingAdjustment} point timing adjustment`;
+  $('#testResult').innerHTML = `<span class="pill"><span class="pulse-dot"></span> ASSESSMENT COMPLETE</span><div class="result-orbit"><b>${score}</b><span>PRACTICE IQ</span></div><h2>${band.name}, meet your growth plan.</h2><p>You answered <strong>${correct} of 30</strong> questions correctly. The practice estimate weighs item difficulty and uses time only as a small accuracy-aware tiebreaker. It is a learning snapshot, not a clinical IQ measurement.</p><div class="result-timing"><div><span>COMPLETION TIME</span><b>${formatDuration(state.elapsedSeconds)}</b></div><div><span>PACE</span><b>${pace}</b></div><div><span>TIME EFFECT</span><b>${timingText}</b></div></div><div class="result-breakdown">${breakdown}</div><button class="primary-button" data-goto="plan">See my game levels + plan <span>→</span></button> <button class="secondary-button" id="retakeTest">Retake later</button>`;
   $('[data-goto="plan"]', $('#testResult')).addEventListener('click', () => navigate('plan'));
   $('#retakeTest').addEventListener('click', startAssessment);
   playBlip();

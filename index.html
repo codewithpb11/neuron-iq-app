@@ -47,8 +47,8 @@
             </article>
             <article class="score-card">
               <div class="card-heading"><span>YOUR BASELINE</span><button data-goto="test">View test →</button></div>
-              <div class="score-empty" id="scoreEmpty"><span class="circle-empty">?</span><p>Take the 8-minute assessment to discover your starting point.</p></div>
-              <div class="score-result hidden" id="scoreResult"><div class="score-orbit"><b id="homeScore">—</b><span>IQ SCORE</span></div><div><h3 id="homeBand">Your baseline awaits</h3><p id="homeScoreNote">A personal plan will appear here.</p></div></div>
+              <div class="score-empty" id="scoreEmpty"><span class="circle-empty">?</span><p>Take the short assessment to discover your starting point.</p></div>
+              <div class="score-result hidden" id="scoreResult"><div class="score-orbit"><b id="homeScore">—</b><span>PRACTICE IQ</span></div><div><h3 id="homeBand">Your baseline awaits</h3><p id="homeScoreNote">A personal plan will appear here.</p></div></div>
               <div class="score-foot"><span>30 QUESTIONS</span><span>•</span><span>NO SIGN-UP</span></div>
             </article>
           </div>
@@ -68,13 +68,13 @@
         </section>
 
         <section class="view" id="testView">
-          <div class="view-intro test-intro"><div><span class="eyebrow">FREE 30-QUESTION ASSESSMENT</span><h2>Meet your mind where it is.</h2><p>Explore your reasoning, working memory, verbal fluency and pattern recognition. This short practice assessment is for learning and is not a clinical IQ test.</p></div><div class="assessment-meta"><b>8–10</b><span>minutes</span><b>30</b><span>questions</span></div></div>
+          <div class="view-intro test-intro"><div><span class="eyebrow">FREE 30-QUESTION ASSESSMENT</span><h2>Meet your mind where it is.</h2><p>Explore your reasoning, working memory, verbal fluency and pattern recognition. This untimed practice assessment records your completion time but is not a clinical IQ test.</p></div><div class="assessment-meta"><b>8–10</b><span>typical minutes</span><b>30</b><span>questions</span></div></div>
           <div class="assessment-card" id="assessmentStart">
             <div class="test-visual"><div class="mini-grid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
-            <div><span class="pill soft" id="assessmentStatus">READY WHEN YOU ARE</span><h3>Find your baseline.</h3><p>There are no trick questions. Work at a steady pace, choose the best answer, and avoid looking things up.</p><div class="assessment-actions"><button class="primary-button" id="startTest">Start assessment <span>→</span></button><button class="secondary-button hidden" id="exploreFirst">Explore the app first</button></div></div>
+            <div><span class="pill soft" id="assessmentStatus">READY WHEN YOU ARE</span><h3>Find your baseline.</h3><p>There are no trick questions and no countdown. Work at a steady pace, choose the best answer, and avoid looking things up. Your elapsed time is used only as a small tiebreaker.</p><div class="assessment-actions"><button class="primary-button" id="startTest">Start assessment <span>→</span></button><button class="secondary-button hidden" id="exploreFirst">Explore the app first</button></div></div>
           </div>
           <div class="quiz-shell hidden" id="quizShell">
-            <div class="quiz-top"><div><span class="eyebrow" id="questionCategory">NUMERICAL REASONING</span><h3 id="questionNumber">Question 1 of 30</h3></div><div class="quiz-top-actions"><button class="quit-test" id="quitTest">Quit assessment</button><span class="timer" id="quizTimer">08:00</span></div></div>
+            <div class="quiz-top"><div><span class="eyebrow" id="questionCategory">NUMERICAL REASONING</span><h3 id="questionNumber">Question 1 of 30</h3></div><div class="quiz-top-actions"><button class="quit-test" id="quitTest">Quit assessment</button><span class="timer" aria-label="Elapsed time"><small>ELAPSED</small><b id="quizTimer">00:00</b></span></div></div>
             <div class="progress-line"><i id="quizProgress"></i></div>
             <div class="quiz-content"><div class="question-art" id="questionArt">2&nbsp; · &nbsp;6&nbsp; · &nbsp;12&nbsp; · &nbsp;20&nbsp; · &nbsp;?</div><h2 id="questionText">Which number completes the sequence?</h2><div class="answers" id="answers"></div></div>
             <div class="quiz-actions"><button class="secondary-button" id="previousQuestion">← Previous</button><span id="answerStatus">Choose one answer</span><button class="primary-button" id="nextQuestion">Next <span>→</span></button></div>
