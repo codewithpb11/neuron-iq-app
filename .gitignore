@@ -9,3 +9,19 @@ tmp-*/
 *.tgz
 node_modules/
 builds/
+tmp-release-jdk/
+tmp-release-jdk.zip
+tmp-android-sdk/
+tmp-android-commandline-tools.zip
+tmp-gradle/
+tmp-gradle.zip
+tmp-gradle-user-home/
+tmp-release-build-output.log
+tmp-release-build-error.log
+
+# Permanent Android signing material — store a secure backup outside this repository.
+.release-signing/
+android/release-signing.properties
+android/*.jks
+android/.gradle/
+android/app/build/

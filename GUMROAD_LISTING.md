@@ -42,7 +42,7 @@ Then train the skills you want to sharpen with eight games:
 
 ### Early Access notice
 
-This is an Early Access release. The app is functional, but gameplay, balancing, design, and features may change with future updates. The supplied APK is debug-signed for direct Android installation and is not a Google Play build.
+This is an Early Access release. The app is functional, but gameplay, balancing, design, and features may change with future updates. The supplied APK is permanently release-signed for direct Android installation and is not a Google Play build.
 
 ### Assessment notice
 

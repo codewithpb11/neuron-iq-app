@@ -18,7 +18,7 @@ Thank you for trying Neuron IQ Early Access. This is a self-contained brain-trai
 3. If Android asks, allow your browser or file manager to install apps from that source.
 4. Tap **Install**, then open **Neuron IQ**.
 
-This Early Access build is debug-signed. It is intended for direct installation, not Google Play distribution. If Android blocks the file, check your device’s “Install unknown apps” setting for the app used to open the download.
+This Early Access build is permanently release-signed for direct installation. It is not yet distributed through Google Play. If Android blocks the file, check your device’s “Install unknown apps” setting for the app used to open the download.
 
 ## What Neuron IQ does
 

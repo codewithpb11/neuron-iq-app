@@ -32,7 +32,7 @@ Every push to `main` that changes the app, assets, Android wrapper, or APK workf
 3. Download the `neuron-iq-app-debug-apk` artifact.
 4. Install `app-debug.apk` on an Android device. Android may ask you to allow installation from that source.
 
-The Android package ID is `com.codewithpb11.neuroniq`. The distributed build is debug-signed; create a release signing configuration before publishing to an app store.
+The Android package ID is `com.codewithpb11.neuroniq`. The Early Access build is signed with the project’s permanent Android release key. Store a secure, private backup of that key before submitting future releases or publishing through an app store.
 
 ## Project structure
 
